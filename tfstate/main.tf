@@ -2,8 +2,6 @@
 # LOCALS
 ##################################################################################
 locals {
-  #resource_group_name    = "davetest-rg"
-  #storage_account_name   = "sk4redtest1234"
   container_name         = "terraform-state"
 }
 ##################################################################################

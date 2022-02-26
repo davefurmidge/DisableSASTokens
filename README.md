@@ -49,7 +49,15 @@ We need to add a property to our **azurerm_storage_account** block like this:-
 ```
 shared_access_key_enabled = false
 ```
-This property indicates whether the storage account permits requests to be authorized with the account access key via Shared Key. If false, then all requests, including shared access signatures, must be authorized with Azure Active Directory (Azure AD). The default value is true.
+This property indicates whether the storage account permits requests to be authorized with the account access key via Shared Key. If false, then all requests, including shared access signatures, must be authorized with Azure Active Directory (Azure AD). The default value is true. You need to use a version of the azurerm provider > 2.73. I'm using the latest at the time of writing, which is 2.97.0.
+
+```
+required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "2.97.0"
+    }
+```
 
 **Note:**
 Terraform uses Shared Key Authorisation to provision Storage Containers, Blobs and other items - when Shared Key Access is disabled, you will need to enable the storage_use_azuread flag in the Provider block to use Azure AD for authentication, however not all Azure Storage services support Active Directory authentication.
