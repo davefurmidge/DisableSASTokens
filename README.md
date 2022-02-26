@@ -1,3 +1,6 @@
+### Introduction
+I was recently tasked with trying to create an Azure storage account to hold the terraform state file that had SAS tokens disabed. I created this Proof of Concept repo to test it out.
+
 ### Initial Setup
 Create a Service Principal at the subscription level with Contributor rights
 ```
@@ -60,7 +63,7 @@ required_providers {
 ```
 
 **Note:**
-Terraform uses Shared Key Authorisation to provision Storage Containers, Blobs and other items - when Shared Key Access is disabled, you will need to enable the storage_use_azuread flag in the Provider block to use Azure AD for authentication, however not all Azure Storage services support Active Directory authentication.
+Terraform uses Shared Key Authorisation to provision Storage Containers, Blobs and other items - when Shared Key Access is disabled, you will need to enable the **storage_use_azuread** flag in the Provider block to use Azure AD for authentication, however not all Azure Storage services support Active Directory authentication.
 Our provider block will now look something like this:-
 ```
 provider "azurerm" {
@@ -106,6 +109,8 @@ Once this is done you can start my issuing the **terraform init** command
 ```
 terraform init
 ```
+
+### Troubleshooting
 If the permissions aren't set correctly this is the step that will generate the errors relating to permissions. The common error is:-
 
 ```
