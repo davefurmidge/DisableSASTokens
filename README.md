@@ -35,10 +35,10 @@ export ARM_CLIENT_SECRET="#########################"
 export ARM_SUBSCRIPTION_ID="00000000-0000-0000-0000-000000000000"
 export ARM_TENANT_ID="00000000-0000-0000-0000-000000000000"
 ```
-The ARM_CLIENT_ID is the appId from the output of the az ad sp create-for-rbac
-The ARM_CLIENT_SECRET is the password from the output of the az ad sp create-for-rbac
-The ARM_SUBSCRIPTION_ID is the id of the subscription you are deploying into
-The ARM_TENANT_ID is the tenant from the output of the az ad sp create-for-rbac
+* The ARM_CLIENT_ID is the appId from the output of the az ad sp create-for-rbac
+* The ARM_CLIENT_SECRET is the password from the output of the az ad sp create-for-rbac
+* The ARM_SUBSCRIPTION_ID is the id of the subscription you are deploying into
+* The ARM_TENANT_ID is the tenant from the output of the az ad sp create-for-rbac
 
 Next we can test the service principal using the output from the **az ad sp create-for-rbac** command we saved earlier
 
@@ -63,7 +63,7 @@ required_providers {
 ```
 
 **Note:**
-Terraform uses Shared Key Authorisation to provision Storage Containers, Blobs and other items - when Shared Key Access is disabled, you will need to enable the **storage_use_azuread** flag in the Provider block to use Azure AD for authentication, however not all Azure Storage services support Active Directory authentication.
+Terraform uses Shared Key Authorisation to provision Storage Containers, Blobs and other items - when Shared Key Access is disabled, you will need to enable the `storage_use_azuread` flag in the Provider block to use Azure AD for authentication, however not all Azure Storage services support Active Directory authentication.
 Our provider block will now look something like this:-
 ```
 provider "azurerm" {
