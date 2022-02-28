@@ -1,4 +1,4 @@
-### Introduction
+# Introduction
 I was recently tasked with trying to create an Azure storage account to hold the terraform state file that had SAS tokens disabed. I created this Proof of Concept repo to test it out.
 
 ### Initial Setup
@@ -22,7 +22,7 @@ az ad sp list --display-name "tfstate-spn" --query "[].{displayName:displayName,
 ```
 Note the object id from the output above.
 
-To allow our Service Principal to access our terraform state container we need to give it another role scoped at the subscription level. The only role I needed to add was the **Storage Blob Data Contributor**, although I have seen other users suggest that you needed to add **Storage Blob Data Owner** too. We can do this like so:-
+To allow our Service Principal to access our terraform state container we need to give it another role scoped at the subscription level. The only role I needed to add was the **Storage Blob Data Contributor**, although Hashicorp suggest that you needed to add **Storage Blob Data Owner** instead. We can do this like so:-
 
 
 ```
@@ -35,10 +35,10 @@ export ARM_CLIENT_SECRET="#########################"
 export ARM_SUBSCRIPTION_ID="00000000-0000-0000-0000-000000000000"
 export ARM_TENANT_ID="00000000-0000-0000-0000-000000000000"
 ```
-* The ARM_CLIENT_ID is the appId from the output of the az ad sp create-for-rbac
-* The ARM_CLIENT_SECRET is the password from the output of the az ad sp create-for-rbac
-* The ARM_SUBSCRIPTION_ID is the id of the subscription you are deploying into
-* The ARM_TENANT_ID is the tenant from the output of the az ad sp create-for-rbac
+* The `ARM_CLIENT_ID` is the appId from the output of the **az ad sp create-for-rbac** command
+* The `ARM_CLIENT_SECRET` is the password from the output of the **az ad sp create-for-rbac** command
+* The `ARM_SUBSCRIPTION_ID` is the id of the subscription you are deploying into
+* The `ARM_TENANT_ID` is the tenant from the output of the **az ad sp create-for-rbac** command
 
 Next we can test the service principal using the output from the **az ad sp create-for-rbac** command we saved earlier
 
@@ -71,6 +71,8 @@ provider "azurerm" {
   storage_use_azuread = true
 }
 ```
+This can also be sourced from the `ARM_USE_AZUREAD` environment variable.
+
 We can then run our terraform command from within our **state** folder (if you are using my sample repo).
 
 ```
